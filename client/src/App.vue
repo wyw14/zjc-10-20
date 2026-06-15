@@ -5,6 +5,16 @@
       <p>每天一个问题，激发深度思考，记录成长轨迹</p>
     </div>
 
+    <div class="header-actions">
+      <button
+        class="privacy-toggle"
+        :class="{ active: privacyMode }"
+        @click="togglePrivacy"
+      >
+        {{ privacyMode ? '🔓 退出隐私模式' : '🔒 隐私阅读模式' }}
+      </button>
+    </div>
+
     <div class="tabs">
       <button
         class="tab-btn"
@@ -35,6 +45,7 @@
       v-else-if="currentTab === 'history'"
       :history="history"
       :loading="historyLoading"
+      :privacy-mode="privacyMode"
       @prev-month="prevMonth"
       @next-month="nextMonth"
     />
@@ -56,6 +67,7 @@ const submitting = ref(false)
 const todayData = ref(null)
 const history = ref(null)
 const historyLoading = ref(false)
+const privacyMode = ref(localStorage.getItem('privacyMode') === 'true')
 
 const toast = reactive({
   show: false,
@@ -70,6 +82,12 @@ function showToast(message, isError = false) {
   setTimeout(() => {
     toast.show = false
   }, 3000)
+}
+
+function togglePrivacy() {
+  privacyMode.value = !privacyMode.value
+  localStorage.setItem('privacyMode', String(privacyMode.value))
+  showToast(privacyMode.value ? '隐私模式已开启' : '隐私模式已关闭')
 }
 
 async function loadToday() {

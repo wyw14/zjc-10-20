@@ -118,7 +118,7 @@ app.get('/api/today', (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: '服务器错�? });
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
@@ -126,7 +126,7 @@ app.post('/api/answer', (req, res) => {
   try {
     const { answer } = req.body;
     if (typeof answer !== 'string') {
-      return res.status(400).json({ success: false, message: '回答内容无效' });
+      return res.status(400).json({ success: false, message: 'Invalid answer' });
     }
     const data = readData();
     ensureTodayQuestion(data);
@@ -151,7 +151,7 @@ app.post('/api/answer', (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: '服务器错�? });
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
@@ -216,7 +216,7 @@ app.get('/api/history', (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: '服务器错�? });
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
@@ -229,13 +229,13 @@ app.get('/api/question-bank', (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: '服务器错�? });
+    res.status(500).json({ success: false, message: 'Server Error' });
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`每日问答后端服务已启�? http://localhost:${PORT}`);
+  console.log(`Server running at http://localhost:${PORT}`);
   const data = readData();
   ensureTodayQuestion(data);
-  console.log(`今日问题已准备就�? ${data.currentQuestion.question}`);
+  console.log(`Today's question ready: ${data.currentQuestion.question}`);
 });

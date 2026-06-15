@@ -62,7 +62,16 @@
       <div v-if="selectedDay.hasQuestion">
         <p class="q-text">❓ {{ selectedDay.question }}</p>
         <div v-if="selectedDay.answered && selectedDay.answer">
-          <p class="a-text">{{ selectedDay.answer }}</p>
+          <div v-if="privacyMode && !isExpanded()" class="answer-collapsed">
+            <p class="collapsed-hint">🔒 回答内容已隐藏（隐私模式）</p>
+            <button class="expand-btn" @click="toggleExpand">👁️ 点击查看回答</button>
+          </div>
+          <div v-else class="answer-container">
+            <div v-if="privacyMode" class="expand-header">
+              <button class="collapse-btn" @click="toggleExpand">🙈 收起回答</button>
+            </div>
+            <p class="a-text">{{ selectedDay.answer }}</p>
+          </div>
         </div>
         <div v-else class="empty-note">这一天没有回答</div>
       </div>
@@ -78,13 +87,15 @@ import { ref, computed, watch } from 'vue'
 
 const props = defineProps({
   history: Object,
-  loading: Boolean
+  loading: Boolean,
+  privacyMode: Boolean
 })
 
 defineEmits(['prev-month', 'next-month'])
 
 const weekdays = ['日', '一', '二', '三', '四', '五', '六']
 const selectedDay = ref(null)
+const expandedDay = ref(null)
 
 const fullCalendar = computed(() => {
   if (!props.history?.calendar) return []
@@ -131,9 +142,24 @@ function getDayClass(day) {
 function selectDay(day) {
   if (day && day.hasQuestion) {
     selectedDay.value = day
+    expandedDay.value = null
   } else {
     selectedDay.value = null
+    expandedDay.value = null
   }
+}
+
+function toggleExpand() {
+  if (expandedDay.value === selectedDay.value.date) {
+    expandedDay.value = null
+  } else {
+    expandedDay.value = selectedDay.value.date
+  }
+}
+
+function isExpanded() {
+  if (!props.privacyMode) return true
+  return expandedDay.value === selectedDay.value?.date
 }
 
 function formatFullDate(dateStr) {
@@ -145,5 +171,6 @@ function formatFullDate(dateStr) {
 
 watch(() => props.history, () => {
   selectedDay.value = null
+  expandedDay.value = null
 })
 </script>

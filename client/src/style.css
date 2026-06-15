@@ -443,3 +443,90 @@ body {
     opacity: 1;
   }
 }
+
+.header-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 15px;
+}
+
+.privacy-toggle {
+  padding: 10px 20px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.privacy-toggle:hover {
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.privacy-toggle.active {
+  background: #48bb78;
+  border-color: #48bb78;
+}
+
+.answer-collapsed {
+  background: #fff3cd;
+  border: 2px dashed #ffc107;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+}
+
+.collapsed-hint {
+  color: #856404;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.expand-btn {
+  padding: 10px 24px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.expand-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(118, 75, 162, 0.3);
+}
+
+.answer-container {
+  position: relative;
+}
+
+.expand-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
+.collapse-btn {
+  padding: 6px 16px;
+  background: transparent;
+  color: #718096;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.collapse-btn:hover {
+  background: #f7fafc;
+  color: #4a5568;
+  border-color: #cbd5e0;
+}
